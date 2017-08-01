@@ -1,0 +1,69 @@
+<!doctype html>
+<head>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title> Socket.io Live Plot </title>
+
+  <!-- css to make things look pretty -->
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic">
+  <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://unpkg.com/vue-material/dist/vue-material.css">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/dygraph/2.0.0/dygraph.min.css"/>
+
+  <!-- javascript libraries -->
+  <script src="https://unpkg.com/vue"></script>
+  <script src="https://unpkg.com/vue-material"></script>
+  <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/socket.io/1.7.3/socket.io.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/dygraph/2.0.0/dygraph.min.js"></script>
+
+</head>
+
+<body> 
+
+  <div class="container" id="app">
+
+    <md-toolbar>
+      <h2 class="md-title" style="flex: 1"> Socket.io Live Plot Demo </h2> 
+    </md-toolbar>
+
+    <md-layout md-column>
+
+      <md-layout md-row md-align="center">
+        <div ref="liveplot" style="width:95%;height;margin-top:50px;margin-bottom:50px;" > </div> 
+      </md-layout>
+
+      <md-layout md-row md-align='left' style="margin-left:100px;">
+        <md-switch v-model="showSioMsgTable" class="md-primary"> Show Message Table </md-switch>
+        <md-button class="md-primary md-raised" @click="onClearPlotButton" style="margin-left:20px;"> Clear Plot </md-button>
+      </md-layout> 
+
+      <md-layout v-if="showSioMsgTable" md-row style="margin-left:100px;">
+        <md-table>
+          <md-table-header>
+            <md-table-row>
+              <md-table-head> # </md-table-head>
+              <md-table-head> key </md-table-head>
+              <md-table-head> value </md-table-head>
+            </md-table-row>
+          </md-table-header>
+          <md-table-body>
+            <md-table-row 
+              v-for="(value, key, index) in sioMsg" 
+              v-bind:value="value" 
+              v-bind:key="key" 
+              v-bind:index="index"
+              >
+              <md-table-cell> {{index}} </md-table-cell>
+              <md-table-cell> {{key}} </md-table-cell>
+              <md-table-cell> {{key==='cnt' ? value : value.toPresicion(4)}} </md-table-cell>
+            </md-table-row>
+          </md-table-body>
+        </md-table>
+      </md-layout>
+    </md-layout>
+
+  </div>
+
+  <script src="app.js" type="text/javascript" charset="utf-8"> </script>
+
+</body>
