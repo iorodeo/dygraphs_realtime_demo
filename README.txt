@@ -28,7 +28,8 @@ Running
 1. Start the test server by running "node test_server.js" in the test_server
 directory.
 
-2. Connect to the server at port 3000 using a web browser.
+2. Connect to the server at port 3000 using a web browser. The web browser
+client should be started and open before starting the test_client. 
 
 3. Start the test client by running "node test_client.js" in the test_client
 sub-directory.  You should be able to stop and re-start the test_client
